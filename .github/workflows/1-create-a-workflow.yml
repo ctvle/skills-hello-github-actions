@@ -20,11 +20,12 @@ permissions:
 jobs:
   # Get the current step to only run the main job when the learner is on the same step.
   get_current_step:
-    name: Check current step number
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    name: Post welcome comment
+    on: 
+    pull request:
+      types: [opened]
+    permissions:
+       pull-requests: write
       - id: get_step
         run: |
           echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
